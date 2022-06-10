@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recreation of MDN platformer game using jsgame0.js</title>
+  <script src="../jsgame0.js"></script>
+  <style type="text/css" media="screen">
+body {
+  background-color: white;
+  color: black;
+}
+.hidden {
+  display: none;
+}
+#original {
+  margin-left: 1em;
+}
+  </style>
+</head>
+
+<body>
+<section id="imageLoader" class="hidden">
+  <img class="hidden" src="images/background.png" alt="background" data-name="background">
+</section>
+
+<main>
+<h1>Recreation of MDN platformer game using jsgame0.js</h1>
+
+<canvas id="screen">
+The game screen appears here if your browser supports the Canvas API.
+</canvas>
+<section id="controls">
+  <button type="button" id="reset">Reset</button>
+  <button type="button" id="pause">Pause</button>
+</section>
+
+<p>Recreation of MDN platformer game using <a href="https://github.com/thisarray/jsgame0">jsgame0.js</a>.</p>
+
+<h2>Attribution</h2>
+
+<p>Image was made by <a href="https://www.kenney.nl/">Kenney</a> and published under <a href="https://creativecommons.org/share-your-work/public-domain/cc0/">CC0 - Public Domain license</a>.</p>
+
+</main>
+
+<script>
+WIDTH = 960;
+HEIGHT = 600;
+
+function draw() {
+  screen.blit('background', [0, 0]);
+}
+
+window.addEventListener('load', (event) => {
+  images.LOAD('#imageLoader img');
+  screen.set_mode('#screen', '#reset', '#pause');
+});
+</script>
+</body>
+
+</html>
