@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recreation of MDN platformer game using jsgame0.js</title>
+  <script src="../jsgame0.js"></script>
+  <script id="level00" type="application/json">
+{
+    "platforms": [
+        {"image": "ground", "x": 0, "y": 546},
+        {"image": "grass_4x1", "x": 420, "y": 420}
+    ],
+    "decoration": [
+        {"frame": 2, "x": 630, "y": 504},
+        {"frame": 2, "x": 663, "y": 504},
+        {"frame": 2, "x": 697, "y": 504},
+        {"frame": 3, "x": 756, "y": 504},
+        {"frame": 1, "x": 84, "y": 504},
+        {"frame": 0, "x": 252, "y": 504},
+        {"frame": 4, "x": 462, "y": 378}
+    ],
+    "coins": [
+        {"x": 147, "y": 525}, {"x": 189, "y": 525},
+        {"x": 399, "y": 399}, {"x": 357, "y": 420}, {"x": 336, "y": 462},
+        {"x": 819, "y": 525}, {"x": 861, "y": 525}, {"x": 903, "y": 525}
+    ],
+    "hero": {"x": 21, "y": 525},
+    "spiders": [
+    ],
+    "door": {"x": 231, "y": 546},
+    "key": {"x": 525, "y": 336}
+}
+  </script>
+  <script id="level01" type="application/json">
+{
+    "platforms": [
+        {"image": "ground", "x": 0, "y": 546},
+        {"image": "grass_8x1", "x": 0, "y": 420},
+        {"image": "grass_2x1", "x": 420, "y": 336},
+        {"image": "grass_1x1", "x": 588, "y": 504},
+        {"image": "grass_8x1", "x": 672, "y": 378},
+        {"image": "grass_4x1", "x": 126, "y": 252},
+        {"image": "grass_6x1", "x": 462, "y": 168},
+        {"image": "grass_2x1", "x": 798, "y": 84}
+    ],
+    "decoration": [
+        {"frame": 0, "x": 84, "y": 504}, {"frame": 1, "x": 420, "y": 504},
+        {"frame": 3, "x": 672, "y": 504}, {"frame": 4, "x": 595, "y": 462},
+        {"frame": 2, "x": 142, "y": 378}, {"frame": 1, "x": 168, "y": 378},
+        {"frame": 0, "x": 714, "y": 336},
+        {"frame": 4, "x": 420, "y": 294},
+        {"frame": 1, "x": 515, "y": 126}, {"frame": 3, "x": 525, "y": 126}
+    ],
+    "coins": [
+        {"x": 231, "y": 524}, {"x": 273, "y": 524}, {"x": 315, "y": 524}, {"x": 357, "y": 524},
+        {"x": 819, "y": 524}, {"x": 861, "y": 524}, {"x": 903, "y": 524}, {"x": 945, "y": 524},
+        {"x": 399, "y": 294}, {"x": 357, "y": 315}, {"x": 336, "y": 357},
+        {"x": 777, "y": 357}, {"x": 819, "y": 357}, {"x": 861, "y": 357}, {"x": 903, "y": 357}, {"x": 945, "y": 357},
+        {"x": 189, "y": 231}, {"x": 231, "y": 231},
+        {"x": 525, "y": 147}, {"x": 567, "y": 147}, {"x": 609, "y": 147}, {"x": 651, "y": 147},
+        {"x": 819, "y": 63}, {"x": 861, "y": 63}
+    ],
+    "hero": {"x": 21, "y": 525},
+    "spiders": [{"x": 121, "y": 399}, {"x": 800, "y": 362}, {"x": 500, "y": 147}],
+    "door": {"x": 169, "y": 546},
+    "key": {"x": 903, "y": 105}
+}
+  </script>
+  <style type="text/css" media="screen">
+body {
+  background-color: white;
+  color: black;
+}
+.hidden {
+  display: none;
+}
+#original {
+  margin-left: 1em;
+}
+  </style>
+</head>
+
+<body>
+<section id="imageLoader" class="hidden">
+  <img class="hidden" src="images/background.png" alt="background" data-name="background">
+  <img class="hidden" src="images/grass_1x1.png" alt="grass_1x1" data-name="grass_1x1">
+  <img class="hidden" src="images/grass_2x1.png" alt="grass_2x1" data-name="grass_2x1">
+  <img class="hidden" src="images/grass_4x1.png" alt="grass_4x1" data-name="grass_4x1">
+  <img class="hidden" src="images/grass_6x1.png" alt="grass_6x1" data-name="grass_6x1">
+  <img class="hidden" src="images/grass_8x1.png" alt="grass_8x1" data-name="grass_8x1">
+  <img class="hidden" src="images/ground.png" alt="ground" data-name="ground">
+  <img class="hidden" src="images/hero_stopped.png" alt="hero_stopped" data-name="hero_stopped">
+</section>
+
+<main>
+<h1>Recreation of MDN platformer game using jsgame0.js</h1>
+
+<canvas id="screen">
+The game screen appears here if your browser supports the Canvas API.
+</canvas>
+<section id="controls">
+  <button type="button" id="reset">Reset</button>
+  <button type="button" id="pause">Pause</button>
+</section>
+
+<p>Recreation of MDN platformer game using <a href="https://github.com/thisarray/jsgame0">jsgame0.js</a>.</p>
+
+<h2>Attribution</h2>
+
+<p>Images were made by <a href="https://www.kenney.nl/">Kenney</a> and published under <a href="https://creativecommons.org/share-your-work/public-domain/cc0/">CC0 - Public Domain license</a>.</p>
+
+</main>
+
+<script>
+WIDTH = 960;
+HEIGHT = 600;
+
+class Hero extends Actor {
+  constructor(x, y) {
+    super('hero_stopped');
+    this.center = [x, y];
+  }
+
+  move(direction) {
+    this.x += direction * 2.5; // Move 2.5 pixels
+  }
+}
+
+let platforms, hero;
+
+function loadLevel(levelName) {
+  let levelData = JSON.parse(document.querySelector(levelName).textContent);
+  platforms = [];
+  for (let platform of levelData['platforms']) {
+    let actor = new Actor(platform['image']);
+    actor.topleft = [platform['x'], platform['y']];
+    platforms.push(actor);
+  }
+  hero = new Hero(levelData['hero']['x'], levelData['hero']['y']);
+}
+
+function reset() {
+  loadLevel('#level01');
+}
+
+function draw() {
+  screen.blit('background', [0, 0]);
+  for (let platform of platforms) {
+    platform.draw();
+  }
+  hero.draw();
+}
+
+function on_key_down(key, mask, string) {
+  if (key === keys.LEFT) {
+    // Move hero left
+    hero.move(-1);
+  }
+  else if (key === keys.RIGHT) {
+    // Move hero right
+    hero.move(1);
+  }
+}
+
+window.addEventListener('load', (event) => {
+  images.LOAD('#imageLoader img');
+  reset();
+  screen.set_mode('#screen', '#reset', '#pause');
+});
+</script>
+</body>
+
+</html>
