@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flip hero.png spritesheet</title>
+  <style type="text/css" media="screen">
+body {
+  background-color: white;
+  color: black;
+}
+canvas {
+  display: block;
+}
+  </style>
+</head>
+
+<body>
+
+<main>
+<h1>Flip hero.png spritesheet</h1>
+
+<h2>Original</h2>
+
+<img id="original" src="images/hero.png" alt="original source">
+
+<h2>Flipped</h2>
+
+<canvas id="flipped"></canvas>
+</main>
+
+<script>
+const original = document.querySelector('#original');
+
+window.addEventListener('load', (event) => {
+  const WIDTH = original.width;
+  const HEIGHT = original.height;
+  const TILE_WIDTH = 36;
+
+  let canvas = document.querySelector('#flipped'),
+      context = canvas.getContext('2d');
+  canvas.width = WIDTH;
+  canvas.height = HEIGHT;
+  context.translate(WIDTH, 0);
+  context.scale(-1, 1);
+  for (let i = 0; i < 6; i++) {
+    // Since the x-axis is negative scaled to mirror horizontally,
+    // the target x-coordinate needs to be recalculated
+    context.drawImage(original, i * TILE_WIDTH, 0, TILE_WIDTH, HEIGHT,
+                      WIDTH - ((i + 1) * TILE_WIDTH), 0, TILE_WIDTH, HEIGHT);
+  }
+});
+</script>
+</body>
+
+</html>
