@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recreation of MDN platformer game using jsgame0.js</title>
+  <script src="../jsgame0.js"></script>
+  <script id="level00" type="application/json">
+{
+    "platforms": [
+        {"image": "ground", "x": 0, "y": 546},
+        {"image": "grass_4x1", "x": 420, "y": 420}
+    ],
+    "decoration": [
+        {"frame": 2, "x": 630, "y": 504},
+        {"frame": 2, "x": 663, "y": 504},
+        {"frame": 2, "x": 697, "y": 504},
+        {"frame": 3, "x": 756, "y": 504},
+        {"frame": 1, "x": 84, "y": 504},
+        {"frame": 0, "x": 252, "y": 504},
+        {"frame": 4, "x": 462, "y": 378}
+    ],
+    "coins": [
+        {"x": 147, "y": 525}, {"x": 189, "y": 525},
+        {"x": 399, "y": 399}, {"x": 357, "y": 420}, {"x": 336, "y": 462},
+        {"x": 819, "y": 525}, {"x": 861, "y": 525}, {"x": 903, "y": 525}
+    ],
+    "hero": {"x": 21, "y": 525},
+    "spiders": [
+    ],
+    "door": {"x": 231, "y": 546},
+    "key": {"x": 525, "y": 336}
+}
+  </script>
+  <script id="level01" type="application/json">
+{
+    "platforms": [
+        {"image": "ground", "x": 0, "y": 546},
+        {"image": "grass_8x1", "x": 0, "y": 420},
+        {"image": "grass_2x1", "x": 420, "y": 336},
+        {"image": "grass_1x1", "x": 588, "y": 504},
+        {"image": "grass_8x1", "x": 672, "y": 378},
+        {"image": "grass_4x1", "x": 126, "y": 252},
+        {"image": "grass_6x1", "x": 462, "y": 168},
+        {"image": "grass_2x1", "x": 798, "y": 84}
+    ],
+    "decoration": [
+        {"frame": 0, "x": 84, "y": 504}, {"frame": 1, "x": 420, "y": 504},
+        {"frame": 3, "x": 672, "y": 504}, {"frame": 4, "x": 595, "y": 462},
+        {"frame": 2, "x": 142, "y": 378}, {"frame": 1, "x": 168, "y": 378},
+        {"frame": 0, "x": 714, "y": 336},
+        {"frame": 4, "x": 420, "y": 294},
+        {"frame": 1, "x": 515, "y": 126}, {"frame": 3, "x": 525, "y": 126}
+    ],
+    "coins": [
+        {"x": 231, "y": 524}, {"x": 273, "y": 524}, {"x": 315, "y": 524}, {"x": 357, "y": 524},
+        {"x": 819, "y": 524}, {"x": 861, "y": 524}, {"x": 903, "y": 524}, {"x": 945, "y": 524},
+        {"x": 399, "y": 294}, {"x": 357, "y": 315}, {"x": 336, "y": 357},
+        {"x": 777, "y": 357}, {"x": 819, "y": 357}, {"x": 861, "y": 357}, {"x": 903, "y": 357}, {"x": 945, "y": 357},
+        {"x": 189, "y": 231}, {"x": 231, "y": 231},
+        {"x": 525, "y": 147}, {"x": 567, "y": 147}, {"x": 609, "y": 147}, {"x": 651, "y": 147},
+        {"x": 819, "y": 63}, {"x": 861, "y": 63}
+    ],
+    "hero": {"x": 21, "y": 525},
+    "spiders": [{"x": 121, "y": 399}, {"x": 800, "y": 362}, {"x": 500, "y": 147}],
+    "door": {"x": 169, "y": 546},
+    "key": {"x": 903, "y": 105}
+}
+  </script>
+  <style type="text/css" media="screen">
+body {
+  background-color: white;
+  color: black;
+}
+.hidden {
+  display: none;
+}
+#original {
+  margin-left: 1em;
+}
+  </style>
+</head>
+
+<body>
+<section id="imageLoader" class="hidden">
+  <img class="hidden" src="images/background.png" alt="background" data-name="background">
+  <img class="hidden" src="images/coin_animated.png" alt="coin_animated" data-name="coin_animated">
+  <img class="hidden" src="images/coin_icon.png" alt="coin_icon" data-name="coin_icon">
+  <img class="hidden" src="images/grass_1x1.png" alt="grass_1x1" data-name="grass_1x1">
+  <img class="hidden" src="images/grass_2x1.png" alt="grass_2x1" data-name="grass_2x1">
+  <img class="hidden" src="images/grass_4x1.png" alt="grass_4x1" data-name="grass_4x1">
+  <img class="hidden" src="images/grass_6x1.png" alt="grass_6x1" data-name="grass_6x1">
+  <img class="hidden" src="images/grass_8x1.png" alt="grass_8x1" data-name="grass_8x1">
+  <img class="hidden" src="images/ground.png" alt="ground" data-name="ground">
+  <img class="hidden" src="images/hero.png" alt="hero" data-name="hero">
+  <img class="hidden" src="images/hero_left.png" alt="hero_left" data-name="hero_left">
+  <img class="hidden" src="images/numbers.png" alt="numbers" data-name="numbers">
+  <img class="hidden" src="images/spider.png" alt="spider" data-name="spider">
+</section>
+<section id="soundLoader" class="hidden">
+  <audio class="hidden" controls preload="auto" src="sounds/coin.wav" data-name="coin">Your browser does not support the audio element.</audio>
+  <audio class="hidden" controls preload="auto" src="sounds/jump.wav" data-name="jump">Your browser does not support the audio element.</audio>
+  <audio class="hidden" controls preload="auto" src="sounds/stomp.wav" data-name="stomp">Your browser does not support the audio element.</audio>
+</section>
+
+<main>
+<h1>Recreation of MDN platformer game using jsgame0.js</h1>
+
+<canvas id="screen">
+The game screen appears here if your browser supports the Canvas API.
+</canvas>
+<section id="controls">
+  <button type="button" id="reset">Reset</button>
+  <button type="button" id="pause">Pause</button>
+</section>
+
+<p>Recreation of MDN platformer game using <a href="https://github.com/thisarray/jsgame0">jsgame0.js</a>.</p>
+
+<h2>Attribution</h2>
+
+<p>Images were made by <a href="https://www.kenney.nl/">Kenney</a> and published under <a href="https://creativecommons.org/share-your-work/public-domain/cc0/">CC0 - Public Domain license</a>.</p>
+
+<p>Audio assets have been released in the public domain under a <a href="https://creativecommons.org/share-your-work/public-domain/cc0/">CC0 license</a>.</p>
+
+</main>
+
+<script>
+WIDTH = 960;
+HEIGHT = 600;
+
+/*
+ * Constant arbitrary number added to the y velocity to simulate gravity.
+ */
+const GRAVITY = 1;
+
+/*
+ * Number of pixels to move the hero.
+ */
+const HERO_SPEED = 2.5;
+
+/*
+ * Number constant for the y velocity of a jump.
+ */
+const HERO_JUMP_SPEED = 20;
+
+/*
+ * Map a string to its corresponding sprite in numbers.png.
+ */
+const NUMBERS_MAP = new Map([
+  ['0', new Rect(0, 0, 20, 26)],
+  ['1', new Rect(20, 0, 20, 26)],
+  ['2', new Rect(40, 0, 20, 26)],
+  ['3', new Rect(60, 0, 20, 26)],
+  ['4', new Rect(80, 0, 20, 26)],
+  ['5', new Rect(100, 0, 20, 26)],
+  ['6', new Rect(0, 26, 20, 26)],
+  ['7', new Rect(20, 26, 20, 26)],
+  ['8', new Rect(40, 26, 20, 26)],
+  ['9', new Rect(60, 26, 20, 26)],
+  ['x', new Rect(80, 26, 20, 26)]
+]);
+
+class Sprite extends Actor {
+  constructor(name, x, y, width, height, frameOrder, fps, loop = true) {
+    super(name);
+    this._width = width;
+    this._height = height;
+    this.center = [x, y];
+
+    this.frameOrder = frameOrder;
+    this.fps = fps;
+    this.loop = loop;
+
+    this.index = 0;
+    this.elapsed = 0;
+  }
+
+  /*
+   * Override width and height to reflect the size of each sprite.
+   */
+  get width() {
+    return this._width;
+  }
+  get height() {
+    return this._height;
+  }
+
+  /*
+   * Override draw to use the spritesheet.
+   */
+  draw() {
+    if (this.index < this.frameOrder.length) {
+      screen.blit(this.name, new Rect(this.frameOrder[this.index] * this.width, 0, this.width, this.height), new Rect(this));
+    }
+  }
+
+  update(dt) {
+    this.elapsed += dt;
+    if (this.elapsed > (1 / this.fps)) {
+      this.index += 1;
+      if (this.index >= this.frameOrder.length) {
+        if (this.loop) {
+          this.index = 0;
+        }
+      }
+      this.elapsed = 0;
+    }
+  }
+}
+
+class Hero extends Sprite {
+  constructor(x, y) {
+    super('hero', x, y, 36, 42, [0], 8);
+
+    this.landed = true;
+    this.yVelocity = 0;
+
+    this.coinPickupCount = 0;
+  }
+
+  move(direction) {
+    if (direction < 0) {
+      this.name = 'hero_left';
+    }
+    else {
+      this.name = 'hero';
+    }
+
+    let oldX = this.x;
+    this.x += direction * HERO_SPEED;
+    if (this.left < 0) {
+      this.x = oldX;
+    }
+    if (this.right > WIDTH) {
+      this.x = oldX;
+    }
+    for (let platform of platforms) {
+      if (platform.colliderect(this)) {
+        this.x = oldX;
+        break;
+      }
+    }
+  }
+
+  jump() {
+    let canJump = this.landed;
+    if (canJump) {
+      this.yVelocity = -HERO_JUMP_SPEED;
+      this.landed = false;
+    }
+    return canJump;
+  }
+
+  /*
+   * Update the effects of gravity on this hero.
+   */
+  update(dt, coins, spiders) {
+    super.update(dt);
+
+    let oldY = this.y,
+        i = 0,
+        moving = false;
+    if (keyboard[keys.LEFT]) {
+      // Move hero left
+      hero.move(-1);
+      moving = true;
+    }
+    else if (keyboard[keys.RIGHT]) {
+      // Move hero right
+      hero.move(1);
+      moving = true;
+    }
+
+    this.yVelocity += GRAVITY;
+
+    this.y += this.yVelocity;
+    for (let platform of platforms) {
+      if (platform.colliderect(this)) {
+        this.y = oldY;
+        this.landed = true;
+        this.yVelocity = 0;
+        break;
+      }
+    }
+
+    for (let coin of coins) {
+      if (hero.colliderect(coin)) {
+        this.coinPickupCount++;
+        sounds.coin.play();
+        coins.splice(i, 1);
+      }
+      i++;
+    }
+
+    for (let spider of spiders) {
+      if (spider.dead) {
+        continue;
+      }
+      if (hero.colliderect(spider)) {
+        if (this.yVelocity > 0) {
+          // Kill enemies when hero is falling
+          spider.kill();
+          this.yVelocity = -Math.floor(HERO_JUMP_SPEED / 4);
+          this.landed = false;
+        }
+        else {
+          // Game over -> restart the game
+          clock.schedule_unique(reset, 0.3);
+        }
+        sounds.stomp.play();
+      }
+    }
+
+    if (this.yVelocity < 0) {
+      // hero is jumping
+      if (this.frameOrder[0] !== 3) {
+        this.frameOrder = [3];
+        this.index = 0;
+        this.elapsed = 0;
+      }
+    }
+    else if ((this.yVelocity > 0) && (!this.landed)) {
+      // hero is falling
+      if (this.frameOrder[0] !== 4) {
+        this.frameOrder = [4];
+        this.index = 0;
+        this.elapsed = 0;
+      }
+    }
+    else if (moving) {
+      // hero is running
+      if (this.frameOrder[0] !== 1) {
+        this.frameOrder = [1, 2];
+        this.index = 0;
+        this.elapsed = 0;
+      }
+    }
+    else {
+      if (this.frameOrder[0] !== 0) {
+        this.frameOrder = [0];
+        this.index = 0;
+        this.elapsed = 0;
+      }
+    }
+  }
+}
+
+class Coin extends Sprite {
+  constructor(x, y) {
+    super('coin_animated', x, y, 22, 22, [0, 1, 2, 1], 6);
+  }
+}
+
+class Spider extends Sprite {
+  constructor(x, y) {
+    super('spider', x, y, 42, 32, [0, 1, 2], 8);
+
+    this.platform = null;
+    this.direction = 1;
+    this.dead = false;
+  }
+
+  kill() {
+    this.dead = true;
+    this.frameOrder = [0, 4, 0, 4, 0, 4, 3, 3, 3, 3, 3, 3];
+    this.fps = 12;
+    this.loop = false;
+    this.index = 0;
+    this.elapsed = 0;
+  }
+
+  update(dt) {
+    super.update(dt);
+
+    if (this.dead) {
+      return;
+    }
+
+    let rect;
+    if (this.direction < 0) {
+      rect = new Rect(this.left + this.direction, this.bottom, 1, this.height);
+    }
+    else {
+      rect = new Rect(this.right + this.direction, this.bottom, 1, this.height);
+    }
+    if (!this.platform.colliderect(rect)) {
+      // If there is no platform in front of the spider
+      this.direction *= -1;
+    }
+
+    // Move at half of the speed of the hero
+    this.x += this.direction * HERO_SPEED / 2;
+
+    if (this.left < 0) {
+      this.direction *= -1;
+      this.x += this.direction * HERO_SPEED;
+    }
+    if (this.right > WIDTH) {
+      this.direction *= -1;
+      this.x += this.direction * HERO_SPEED;
+    }
+  }
+}
+
+let platforms, hero, coins, spiders;
+
+function loadLevel(levelName) {
+  let levelData = JSON.parse(document.querySelector(levelName).textContent);
+  platforms = [];
+  for (let platform of levelData['platforms']) {
+    let actor = new Actor(platform['image']);
+    actor.topleft = [platform['x'], platform['y']];
+    platforms.push(actor);
+  }
+  hero = new Hero(levelData['hero']['x'], levelData['hero']['y']);
+  coins = [];
+  for (let coin of levelData['coins']) {
+    coins.push(new Coin(coin['x'], coin['y']));
+  }
+  spiders = [];
+  for (let spider of levelData['spiders']) {
+    let s = new Spider(spider['x'], spider['y']),
+        rect = new Rect(s.x, s.bottom, s.width, s.height);
+    // Find the platform the current spider is patrolling
+    for (let platform of platforms) {
+      if (platform.colliderect(rect)) {
+        s.platform = platform;
+        break;
+      }
+    }
+    spiders.push(s);
+  }
+}
+
+function reset() {
+  loadLevel('#level01');
+}
+
+function draw() {
+  screen.blit('background', [0, 0]);
+  for (let platform of platforms) {
+    platform.draw();
+  }
+  hero.draw();
+  for (let coin of coins) {
+    coin.draw();
+  }
+  for (let spider of spiders) {
+    spider.draw();
+  }
+
+  // Draw the HUD
+  screen.blit('coin_icon', [10, 10]);
+  let x = 10 + 38,
+      value = 'x' + hero.coinPickupCount;
+  for (let c of value) {
+    screen.blit('numbers', NUMBERS_MAP.get(c), new Rect(x, 16, 20, 26));
+    x += 20;
+  }
+}
+
+function update(dt) {
+  hero.update(dt, coins, spiders);
+  for (let coin of coins) {
+    coin.update(dt);
+  }
+  for (let spider of spiders) {
+    spider.update(dt);
+  }
+}
+
+function on_key_down(key, mask, string) {
+  if (key === keys.UP) {
+    if (hero.jump()) {
+      sounds.jump.play();
+    }
+  }
+}
+
+window.addEventListener('load', (event) => {
+  images.LOAD('#imageLoader img');
+  sounds.LOAD('#soundLoader audio');
+  reset();
+  screen.set_mode('#screen', '#reset', '#pause');
+});
+</script>
+</body>
+
+</html>
