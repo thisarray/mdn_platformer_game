@@ -144,7 +144,7 @@ class Hero extends Actor {
     this.yVelocity = 0;
   }
 
-  move(direction) {
+  move(direction, platforms) {
     let oldX = this.x;
     this.x += direction * HERO_SPEED;
     if (this.left < 0) {
@@ -154,7 +154,7 @@ class Hero extends Actor {
       this.x = oldX;
     }
     for (let platform of platforms) {
-      if (platform.colliderect(this)) {
+      if (this.colliderect(platform)) {
         this.x = oldX;
         break;
       }
@@ -174,14 +174,14 @@ class Hero extends Actor {
   /*
    * Update the effects of gravity on this hero.
    */
-  update(dt, coins) {
+  update(dt, platforms, coins) {
     if (keyboard[keys.LEFT]) {
       // Move hero left
-      hero.move(-1);
+      this.move(-1, platforms);
     }
     else if (keyboard[keys.RIGHT]) {
       // Move hero right
-      hero.move(1);
+      this.move(1, platforms);
     }
 
     let oldY = this.y,
@@ -190,7 +190,7 @@ class Hero extends Actor {
 
     this.y += this.yVelocity;
     for (let platform of platforms) {
-      if (platform.colliderect(this)) {
+      if (this.colliderect(platform)) {
         this.y = oldY;
         this.landed = true;
         this.yVelocity = 0;
@@ -199,7 +199,7 @@ class Hero extends Actor {
     }
 
     for (let coin of coins) {
-      if (hero.colliderect(coin)) {
+      if (this.colliderect(coin)) {
         sounds.coin.play();
         coins.splice(i, 1);
       }
@@ -343,7 +343,7 @@ function draw() {
 }
 
 function update(dt) {
-  hero.update(dt, coins);
+  hero.update(dt, platforms, coins);
   for (let coin of coins) {
     coin.update(dt);
   }

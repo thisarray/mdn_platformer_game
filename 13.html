@@ -219,7 +219,7 @@ class Hero extends Sprite {
     this.coinPickupCount = 0;
   }
 
-  move(direction) {
+  move(direction, platforms) {
     if (direction < 0) {
       this.name = 'hero_left';
     }
@@ -236,7 +236,7 @@ class Hero extends Sprite {
       this.x = oldX;
     }
     for (let platform of platforms) {
-      if (platform.colliderect(this)) {
+      if (this.colliderect(platform)) {
         this.x = oldX;
         break;
       }
@@ -255,7 +255,7 @@ class Hero extends Sprite {
   /*
    * Update the effects of gravity on this hero.
    */
-  update(dt, coins, spiders) {
+  update(dt, platforms, coins, spiders) {
     super.update(dt);
 
     let oldY = this.y,
@@ -263,12 +263,12 @@ class Hero extends Sprite {
         moving = false;
     if (keyboard[keys.LEFT]) {
       // Move hero left
-      hero.move(-1);
+      this.move(-1, platforms);
       moving = true;
     }
     else if (keyboard[keys.RIGHT]) {
       // Move hero right
-      hero.move(1);
+      this.move(1, platforms);
       moving = true;
     }
 
@@ -276,7 +276,7 @@ class Hero extends Sprite {
 
     this.y += this.yVelocity;
     for (let platform of platforms) {
-      if (platform.colliderect(this)) {
+      if (this.colliderect(platform)) {
         this.y = oldY;
         this.landed = true;
         this.yVelocity = 0;
@@ -285,7 +285,7 @@ class Hero extends Sprite {
     }
 
     for (let coin of coins) {
-      if (hero.colliderect(coin)) {
+      if (this.colliderect(coin)) {
         this.coinPickupCount++;
         sounds.coin.play();
         coins.splice(i, 1);
@@ -297,7 +297,7 @@ class Hero extends Sprite {
       if (spider.dead) {
         continue;
       }
-      if (hero.colliderect(spider)) {
+      if (this.colliderect(spider)) {
         if (this.yVelocity > 0) {
           // Kill enemies when hero is falling
           spider.kill();
@@ -461,7 +461,7 @@ function draw() {
 }
 
 function update(dt) {
-  hero.update(dt, coins, spiders);
+  hero.update(dt, platforms, coins, spiders);
   for (let coin of coins) {
     coin.update(dt);
   }
