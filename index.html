@@ -227,9 +227,15 @@ class Hero extends Sprite {
 
     this.coinPickupCount = 0;
     this.hasKey = false;
+
+    this.dead = false;
   }
 
   move(direction, platforms) {
+    if (this.dead) {
+      return;
+    }
+
     if (direction < 0) {
       this.name = 'hero_left';
     }
@@ -254,6 +260,10 @@ class Hero extends Sprite {
   }
 
   jump() {
+    if (this.dead) {
+      return false;
+    }
+
     let canJump = this.landed;
     if (canJump) {
       this.yVelocity = -HERO_JUMP_SPEED;
@@ -294,6 +304,10 @@ class Hero extends Sprite {
       }
     }
 
+    if (this.dead) {
+      return;
+    }
+
     for (let coin of coins) {
       if (this.colliderect(coin)) {
         this.coinPickupCount++;
@@ -316,6 +330,7 @@ class Hero extends Sprite {
         }
         else {
           // Game over -> restart the game
+          this.dead = true;
           clock.schedule_unique(loadLevel, 0.3);
         }
         sounds.stomp.play();
@@ -333,7 +348,14 @@ class Hero extends Sprite {
       loadLevel();
     }
 
-    if (this.yVelocity < 0) {
+    if (this.dead) {
+      if (this.frameOrder[0] !== 5) {
+        this.frameOrder = [5];
+        this.index = 0;
+        this.elapsed = 0;
+      }
+    }
+    else if (this.yVelocity < 0) {
       // hero is jumping
       if (this.frameOrder[0] !== 3) {
         this.frameOrder = [3];
