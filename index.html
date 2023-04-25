@@ -278,6 +278,10 @@ class Hero extends Sprite {
   update(dt, platforms, coins, spiders, door, key) {
     super.update(dt);
 
+    if (this.dead) {
+      return;
+    }
+
     let oldY = this.y,
         i = 0,
         moving = false;
@@ -302,10 +306,6 @@ class Hero extends Sprite {
         this.yVelocity = 0;
         break;
       }
-    }
-
-    if (this.dead) {
-      return;
     }
 
     for (let coin of coins) {
@@ -449,11 +449,11 @@ class Spider extends Sprite {
 let level, platforms, hero, coins, spiders, door, key, decorations;
 
 function loadLevel() {
-  let levelElement = document.querySelector('#level' + level.toFixed(0).padStart(2, '0')),
+  let levelElement = document.querySelector('#level' + level.toFixed().padStart(2, '0')),
       levelData;
   if (levelElement == null) {
     level = 0;
-    levelElement = document.querySelector('#level' + level.toFixed(0).padStart(2, '0'));
+    levelElement = document.querySelector('#level' + level.toFixed().padStart(2, '0'));
   }
   levelData = JSON.parse(levelElement.textContent);
 

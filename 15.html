@@ -423,11 +423,11 @@ class Spider extends Sprite {
 let level, platforms, hero, coins, spiders, door, key;
 
 function loadLevel() {
-  let levelElement = document.querySelector('#level' + level.toFixed(0).padStart(2, '0')),
+  let levelElement = document.querySelector('#level' + level.toFixed().padStart(2, '0')),
       levelData;
   if (levelElement == null) {
     level = 0;
-    levelElement = document.querySelector('#level' + level.toFixed(0).padStart(2, '0'));
+    levelElement = document.querySelector('#level' + level.toFixed().padStart(2, '0'));
   }
   levelData = JSON.parse(levelElement.textContent);
 
