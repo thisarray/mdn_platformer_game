@@ -3,7 +3,7 @@
 This workshop closely follows the [HTML5 Games Workshop](https://mozdevs.github.io/html5-games-workshop/)
 but altered for [jsgame0.js](https://github.com/thisarray/jsgame0) instead of [Phaser](https://phaser.io).
 
-[Play the jsgame0.js version of the MDN platformer game](../).
+[Play the jsgame0.js version of the MDN platformer game](https://thisarray.github.io/mdn_platformer_game/).
 
 [jsgame0.js](https://github.com/thisarray/jsgame0) is a collection of JavaScript objects following the Pygame Zero specifications.
 It makes porting Pygame Zero scripts from Python to JavaScript straightforward.
@@ -26,7 +26,7 @@ At the very least, read the [JavaScript Guide at MDN](https://developer.mozilla.
 Knowledge of CSS and HTML is also helpful to understand how the boilerplate works.
 But you can get by with just copy and paste.
 
-## About the art assets
+## About the Art Assets
 
 The graphic and audio assets of the game in this guide have been released in the public domain under a [CC0 license](https://creativecommons.org/share-your-work/public-domain/cc0/).
 These assets are:
@@ -34,3 +34,5 @@ These assets are:
 - The images have been created by [Kenney](https://www.kenney.nl/), and are part of his [_Platformer Art: Pixel Redux_ set](https://opengameart.org/content/platformer-art-pixel-redux) (they have been scaled up, and some of them have minor edits).
 - The background music track, [_Happy Adventure_](https://opengameart.org/content/happy-adventure-loop), has been created by [Rick Hoppmann](https://www.tinyworlds.org/).
 - The sound effects have been randomly generated with the [Bfxr](https://www.bfxr.net/) synth.
+
+[Continue...](setup.md)

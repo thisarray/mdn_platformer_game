@@ -19,7 +19,7 @@ Nonetheless, this workshop gives you a better understanding of how [jsgame0.js](
 
 [**You can access the jsgame0.js workshop online here**](https://thisarray.github.io/mdn_platformer_game/workshop/)
 
-## About the art assets
+## About the Art Assets
 
 The graphic and audio assets of the game in this guide have been released in the public domain under a [CC0 license](https://creativecommons.org/share-your-work/public-domain/cc0/).
 These assets are:
