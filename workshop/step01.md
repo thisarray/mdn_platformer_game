@@ -3,9 +3,10 @@
 For [jsgame0.js](https://github.com/thisarray/jsgame0) to work, it expects assets in certain places.
 This is a requirement of Pygame Zero upon which it was based.
 
-images should be placed in an "images" directory.
-sounds should be placed in a "sounds" directory.
-You can place music either in the "sounds" directory or in a dedicated "music" directory.
+Images should be placed in an "images" directory.
+Sounds should be placed in a "sounds" directory.
+You can place music either in the "sounds" directory or in a dedicated "music" directory depending on how you like to organize the files.
+I have chosen to keep the music in the "sounds" directory to mimic the original MDN platformer game.
 
 Make sure your game directory looks like this:
 
@@ -82,6 +83,7 @@ window.addEventListener('load', (event) => {
 ```
 
 When you open "index.html" in your browser, you should see a black canvas element with a play arrow.
+This canvas element will be the screen of the game.
 We will be editing index.html as we develop the game.
 
 ## Explanation of the Boilerplate
@@ -112,10 +114,10 @@ The script tag tells the browser where to find the JavaScript file for [jsgame0.
 
 This section loads background.png using an image tag.
 As we will see later, more image tags will be added to load additional images.
-Thanks to the image tag, the page does not require a local web server to load images.
+Thanks to the image tag, the page does not require a local web server to serve images.
 
-The tags get a CSS class of "hidden" so they do not show up on the page.
-Without this CSS class, you would see images clutter the page which is not what we want.
+The tags get a CSS class of "hidden" to hide them.
+Without this CSS class, background.png would show up on the page outside of the screen which is not what we want.
 This does not stop the browser from fetching the images though.
 
 ```html
@@ -133,3 +135,5 @@ The part between the script tag is where we write our JavaScript code for the ga
 The WIDTH and the HEIGHT tell [jsgame0.js](https://github.com/thisarray/jsgame0) how big to make the screen canvas element.
 
 We wait in an event listener for the page to finish loading to make sure all the assets are available before running.
+
+[Continue...](step02.md)
