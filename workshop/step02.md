@@ -22,3 +22,7 @@ window.addEventListener('load', (event) => {
 
 In draw(), the background image is drawn to the screen in each iteration of the game loop.
 If you open "index.html" in your browser and click on the canvas, you will see the background image take up the screen.
+
+[See a live example of the code up to this point.](https://thisarray.github.io/mdn_platformer_game/02.html)
+
+[Continue...](step03.md)
