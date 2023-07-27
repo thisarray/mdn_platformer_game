@@ -7,7 +7,7 @@ Depending on the image, an Actor instance can be the hero, an enemy, or just ele
 To create platforms, we are going to create an Actor instance for each platform.
 But first we need to make the images available so we need to load them.
 
-Modify the imageLoader section to load the platforms.
+Modify the imageLoader section to load the images for the various sizes of platforms.
 
 ```html
 <section id="imageLoader" class="hidden">
@@ -136,3 +136,7 @@ For these platforms to actually show up on screen, we have to draw them in the d
 loadLevel() is a separate function so we can change the level simply by changing the name passed to it.
 We specify the level to load in the reset() function.
 reset() is called when the user clicks in the screen canvas element to start the game.
+
+[See a live example of the code up to this point.](https://thisarray.github.io/mdn_platformer_game/03.html)
+
+[Continue...](step04.md)
