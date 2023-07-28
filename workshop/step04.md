@@ -52,4 +52,8 @@ This is because the JSON level description is not consistent and specifies the t
 We keep this inconsistency to agree with the original MDN platformer game.
 
 If we were creating our own game, then we can dictate the standard for the coordinates.
-Having the coordinates vary in the JSON level description is one way bugs can creep into the code because it is difficult to keep track of where they are on the Actor instance.
+Having the coordinates vary in the JSON level description is one way bugs can creep into the code because it is difficult to keep track of where the coordinates are on different Actor instances.
+
+[See a live example of the code up to this point.](https://thisarray.github.io/mdn_platformer_game/04.html)
+
+[Continue...](step05.md)
