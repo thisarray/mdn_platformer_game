@@ -56,3 +56,7 @@ The key argument stores the key that was pressed.
 It can be matched against the keys enumeration to figure out which key was pressed.
 If the left arrow key was pressed, then we move the hero left.
 If the right arrow key was pressed, then we move the hero right.
+
+[See a live example of the code up to this point.](https://thisarray.github.io/mdn_platformer_game/05.html)
+
+[Continue...](step06.md)
