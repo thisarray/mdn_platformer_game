@@ -55,3 +55,7 @@ function on_key_down(key, mask, string) {
   }
 }
 ```
+
+[See a live example of the code up to this point.](https://thisarray.github.io/mdn_platformer_game/07.html)
+
+[Continue...](step08.md)
