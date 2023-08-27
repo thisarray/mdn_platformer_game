@@ -130,3 +130,7 @@ function update(dt) {
   }
 }
 ```
+
+[See a live example of the code up to this point.](https://thisarray.github.io/mdn_platformer_game/09.html)
+
+[Continue...](step10.md)
