@@ -187,3 +187,7 @@ function on_key_down(key, mask, string) {
 
 After making the changes, the movement should feel more like a typical platformer game.
 You can even change the hero's direction in midair.
+
+[See a live example of the code up to this point.](https://thisarray.github.io/mdn_platformer_game/08.html)
+
+[Continue...](step09.md)
