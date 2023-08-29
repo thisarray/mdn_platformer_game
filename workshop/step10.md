@@ -201,3 +201,7 @@ class Hero extends Actor {
     }
   }
 ```
+
+[See a live example of the code up to this point.](https://thisarray.github.io/mdn_platformer_game/10.html)
+
+[Continue...](step11.md)
