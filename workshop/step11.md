@@ -234,3 +234,7 @@ class Spider extends Sprite {
   }
 }
 ```
+
+[See a live example of the code up to this point.](https://thisarray.github.io/mdn_platformer_game/11.html)
+
+[Continue...](step12.md)
