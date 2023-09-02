@@ -175,3 +175,7 @@ To load the new spritesheet, replace the old static image with these new sprites
   <img class="hidden" src="images/hero.png" alt="hero" data-name="hero">
   <img class="hidden" src="images/hero_left.png" alt="hero_left" data-name="hero_left">
 ```
+
+[See a live example of the code up to this point.](https://thisarray.github.io/mdn_platformer_game/13.html)
+
+[Continue...](step14.md)
