@@ -3,7 +3,7 @@
 To give the player a way to win, the original MDN platformer game added a door and a key.
 This is something we have done multiple times already.
 
-## Add the HTML needed to load the images and sounds.
+## Add the HTML to Load the Images and Sounds
 
 ```html
   <img class="hidden" src="images/door.png" alt="door" data-name="door">
@@ -25,7 +25,7 @@ This is something we have done multiple times already.
   <audio class="hidden" controls preload="auto" src="sounds/key.wav" data-name="key">Your browser does not support the audio element.</audio>
 ```
 
-## Create the Sprite and Actor instances to represent the door and the key
+## Create the Sprite and Actor Instances for the Door and the Key
 
 When a level is loaded, we create the appropriate Sprite instance for the door because it uses a spritesheet and Actor instance for the key.
 Note the door coordinates specify its midbottom.
@@ -67,7 +67,7 @@ function loadLevel(levelName) {
 }
 ```
 
-## Update draw() to draw the door and the key
+## Update draw() to Draw the Door and the Key
 
 ```js
 function draw() {
@@ -259,3 +259,7 @@ class Hero extends Sprite {
 
 Detecting when the hero picks up the key is the same as when the hero picks up a coin.
 If the hero is standing by the door with the key, then the level resets.
+
+[See a live example of the code up to this point.](https://thisarray.github.io/mdn_platformer_game/14.html)
+
+[Continue...](step15.md)
