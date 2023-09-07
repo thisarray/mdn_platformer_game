@@ -181,6 +181,8 @@ If the level index is not incremented, then the current level is reloaded to res
   }
 ```
 
+[See a live example of the code up to this point.](https://thisarray.github.io/mdn_platformer_game/15.html)
+
 The method you choose is up to you.
 By the way, this is how all video games are structured.
 One level leads to the next sometimes with narrative in between to advance the plot as needed.
