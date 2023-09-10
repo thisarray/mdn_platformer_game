@@ -18,7 +18,14 @@ game
 |-- jsgame0.js
 ```
 
+If you cloned this repository to get the files, this repository already has the above structure.
+But it is missing the JavaScript file for [jsgame0.js](https://github.com/thisarray/jsgame0).
+Navigate to the [jsgame0.js](https://github.com/thisarray/jsgame0) repository.
+Copy and paste the [jsgame0.js](https://github.com/thisarray/jsgame0) code into a text editor and save it as `jsgame0.js` in your game directory.
+
 Copy the following boilerplate and save it as index.html.
+If you cloned this repository, then you can either overwrite index.html or use your own filename.
+From here on, "index.html" refers to your working HTML file.
 
 ```html
 <!DOCTYPE html>
